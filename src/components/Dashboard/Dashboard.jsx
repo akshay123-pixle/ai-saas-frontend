@@ -7,6 +7,7 @@ import ObjectRemove from "../Dashboard/SubElements/ObjectRemove.jsx";
 import { BackgroundRemove } from "../Dashboard/SubElements/BackgroundRemove.jsx";
 import ReviewResume from "../Dashboard/SubElements/ReviewResume.jsx";
 import { useDispatch, useSelector } from "react-redux";
+import { MdDelete } from "react-icons/md";
 import {
   Hash,
   Eraser,
@@ -127,6 +128,7 @@ const Dashboard = () => {
           >
             {item.icon}
             <span>{item.name}</span>
+            
           </div>
         ))}
       </div>

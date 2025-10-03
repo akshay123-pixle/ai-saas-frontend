@@ -14,7 +14,7 @@ import ObjectRemove from "./components/Dashboard/SubElements/ObjectRemove.jsx";
 import { BackgroundRemove } from "./components/Dashboard/SubElements/BackgroundRemove.jsx";
 import ReviewResume from "./components/Dashboard/SubElements/ReviewResume.jsx";
 import Registration from "./components/Authentication/Registration.jsx";
-import Toaster from "react-hot-toast";
+import {Toaster} from "react-hot-toast";
 import Login from "./components/Authentication/Login.jsx";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

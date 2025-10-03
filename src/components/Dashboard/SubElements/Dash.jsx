@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const Dash = () => {
@@ -26,6 +27,8 @@ const Dash = () => {
               <p className="text-sm text-gray-600">
                 {item.type} - {new Date(item.createdAt).toLocaleString()}
               </p>
+              <MdDelete className="text-red-500 cursor-pointer" />
+
             </div>
           ))}
 

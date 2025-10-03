@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { assets } from "../assets/assets.js";
 import { useNavigate } from "react-router-dom";
 import { userLogin } from "../store/userSlice.js";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,8 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem("userInfo");        // clear from localStorage
     dispatch(userLogin(null));                 // clear from Redux
-    navigate("/login");                        // redirect to login (optional)
+    navigate("/login");
+    toast.success("Logged Out")                        // redirect to login (optional)
   };
 
   return (

@@ -4,14 +4,17 @@ import { userLogin } from "../../store/userSlice";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import Loader from "../loader/Loader";
 const Login = () => {
   const userInfo = useSelector((store) => store.app.userInfo);
   const dipatch = useDispatch();
   const [email, setEmail] = useState("test@gmail.com");
   const [password, setPassword] = useState("123456");
+  const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/user/login`,
@@ -20,15 +23,17 @@ const Login = () => {
           password,
         }
       );
-      // console.log(response.data.user);
-      const userData = await response.data.user;
-      toast.success("success");
+      const userData = response.data.user;
+
+      toast.success("Login successful!");
       localStorage.setItem("userInfo", JSON.stringify(userData));
       dipatch(userLogin(userData));
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      toast.error("Erro occured");
+      console.error(error);
+      toast.error("Error occurred during login");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -44,7 +49,7 @@ const Login = () => {
             <input
               required={true}
               value={email}
-              onChange={() => setEmail((e) => e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
               type="email"
               className="border px-12 py-1 rounded-2xl outline-none border-gray-400"
               placeholder="Enter the name"
@@ -55,7 +60,7 @@ const Login = () => {
             <input
               required={true}
               value={password}
-              onChange={() => setPassword((e) => e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               className="border px-12 py-1 rounded-2xl outline-none border-gray-400"
               placeholder="Enter the name"
@@ -66,7 +71,7 @@ const Login = () => {
             type="submit"
             className="bg-blue-500 text-white px-12 cursor-pointer py-2 rounded-4xl border border-gray-300 "
           >
-            Login
+            {isLoading ? <Loader /> : "Login"}
           </button>
           <button
             type="button"
