@@ -6,7 +6,7 @@ export const fetchPaymentLink = createAsyncThunk(
   "payment/fetchPaymentLink",
   async ({ userId }) => {
     const response = await axios.post(
-      `${import.meta.env.VITE_PRODUCTION_API}/api/payment/create`,
+      `${import.meta.env.VITE_BACKEND_API}/api/payment/create`,
       {
         unit_amount: 1000,
         serviceType: "Premium",
