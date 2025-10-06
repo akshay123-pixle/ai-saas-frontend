@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import Loader from "../loader/Loader";
 const Login = () => {
   const userInfo = useSelector((store) => store.app.userInfo);
-  const dipatch = useDispatch();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("test@gmail.com");
   const [password, setPassword] = useState("123456");
   const [isLoading, setIsLoading] = useState(null);
@@ -16,22 +16,27 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post(
+      const { data } = await axios.post(
         `${import.meta.env.VITE_BACKEND_API}/user/login`,
-        {
-          email,
-          password,
-        }
+        { email, password }
       );
-      const userData = response.data.user;
 
+      if (!data?.success) {
+        toast.error(data?.message || "Login failed.");
+        return;
+      }
+
+      // Save user info
+      const userData = data.user;
       toast.success("Login successful!");
       localStorage.setItem("userInfo", JSON.stringify(userData));
-      dipatch(userLogin(userData));
+      dispatch(userLogin(userData));
       navigate("/dashboard");
     } catch (error) {
-      console.error(error);
-      toast.error("Error occurred during login");
+      console.error("Login error:", error);
+      const message =
+        error.response?.data?.message || "Error occurred during login.";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
