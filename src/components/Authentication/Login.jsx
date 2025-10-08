@@ -8,8 +8,8 @@ import Loader from "../loader/Loader";
 const Login = () => {
   const userInfo = useSelector((store) => store.app.userInfo);
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(null);
   const navigate = useNavigate();
   const handleLogin = async (e) => {
