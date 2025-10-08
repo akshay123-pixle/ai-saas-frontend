@@ -3,6 +3,7 @@ import { subScriptionplans } from "../assets/assets.js";
 import { MdDone } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPaymentLink } from "../store/payment.js";
+import toast from "react-hot-toast";
 
 const Subscription = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const Subscription = () => {
       setShouldRedirect(true); // Allow redirect after paymentLink received
       dispatch(fetchPaymentLink({ userId }));
     } else {
-      alert("Please login to subscribe");
+      toast.success("Please login to subscribe");
     }
   };
 
